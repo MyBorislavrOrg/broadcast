@@ -1,0 +1,33 @@
+---
+name: Reusable Broadcast files to organization
+on:
+  workflow_call:
+    inputs:
+      repo_name:
+        description: |
+          Target repositorys names. Comma-separated
+          If not provided, the action will be triggered for all repositories in the organization.
+        required: false
+        type: string
+      replicate-common-files:
+        description: 'Replicate common files'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+  pull-requests: write
+  statuses: read
+jobs:
+  replicate_common_files:
+    name: Replicating common git files
+    strategy:
+      fail-fast: false
+      matrix:
+        repo: "${{ toJson(inputs.repo_name) }}"
+    if: ${{ inputs.replicate-common-files }}
+    uses: myborislavrorg/broadcast/.github/workflows/reusable-broadcast-files.yaml@main
+    with:
+      token: '${{ secrets.GITHUB_TOKEN }}'
+      repo_name: "${{ matrix.repo }}"
