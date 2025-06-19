@@ -3,7 +3,7 @@ name: Broadcast files to organization
 on:
   workflow_dispatch:
     inputs:
-      repo_name:
+      repos:
         description: |
           Target repositorys names. Comma-separated
           If not provided, the action will be triggered for all repositories in the organization.
@@ -27,10 +27,10 @@ jobs:
     steps:
       - id: setup_matrix
         run: |
-          CSV_STRING="item1,item2,item3"
+          CSV_STRING="${{ inputs.repos }}"
           JSON_MATRIX=$(jq -c -n --arg in_str "$CSV_STRING" '$in_str | split(",")')
           echo "matrix={\"items\":$JSON_MATRIX}" >> $GITHUB_OUTPUT
-          # csv_string="${{ inputs.repo_name }}"
+          # csv_string="${{ inputs.repos }}"
           # printf -v quoted_string '"%s",' ${csv_string//,/ }
           # json_string="[${quoted_string%,}]"  # Remove the last comma
           # echo "matrix_output={\"items\":$json_string}"
