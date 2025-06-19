@@ -38,7 +38,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        repo: "${{ fromJson(needs.setup_matrix.outputs.matrix) }}"
+        repo: ${{ fromJson(needs.setup_matrix.outputs.matrix) }}
     if: ${{ inputs.replicate-common-files }}
     uses: myborislavrorg/broadcast/.github/workflows/reusable-broadcast-files.yaml@main
     with:
