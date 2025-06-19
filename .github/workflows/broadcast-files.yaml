@@ -20,12 +20,22 @@ permissions:
   pull-requests: write
   statuses: read
 jobs:
+  setup_matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.setup_matrix.outputs.matrix_output }}
+    steps:
+      - id: setup_matrix
+        uses: cschadewitz/dynamic-matrix-input@v1.0.0
+        with:
+          matrix_input: ${{ github.event.inputs.repo_name }}
   replicate_common_files:
+    needs: setup_matrix
     name: Replicating common git files
     strategy:
       fail-fast: false
       matrix:
-        repo: "${{ fromJson(inputs.repo_name) }}"
+        repo: "${{ fromJson(needs.setup_matrix.outputs.matrix) }}"
     if: ${{ inputs.replicate-common-files }}
     uses: myborislavrorg/broadcast/.github/workflows/reusable-broadcast-files.yaml@main
     with:
