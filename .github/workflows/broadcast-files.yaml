@@ -26,9 +26,11 @@ jobs:
       matrix: ${{ steps.setup_matrix.outputs.matrix_output }}
     steps:
       - id: setup_matrix
-        uses: cschadewitz/dynamic-matrix-input@v1.0.0
-        with:
-          matrix_input: ${{ github.event.inputs.repo_name }}
+        run: |
+          csv_string="${{ inputs.repo_name }}"
+          printf -v quoted_string '"%s",' ${csv_string//,/ }
+          json_string="[${quoted_string%,}]"  # Remove the last comma
+          echo "$json_string"
   replicate_common_files:
     needs: setup_matrix
     name: Replicating common git files
