@@ -27,7 +27,7 @@ jobs:
       matrix:
         repo: "${{ toJson(inputs.repo_name) }}"
     if: ${{ inputs.replicate-common-files }}
-    uses: myborislavrorg/broadcast/ci/reusable-broadcast-files.yaml@main
+    uses: myborislavrorg/broadcast/.github/workflows/reusable-broadcast-files.yaml@main
     with:
       replicate-common-files: ${{ inputs.replicate-common-files }}
       repo_name: "${{ matrix.repo }}"
