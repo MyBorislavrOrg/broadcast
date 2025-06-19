@@ -1,0 +1,41 @@
+---
+name: Broadcast files to organization
+on:
+  workflow_call:
+    inputs:
+      repo_name:
+        description: |
+          Target repository name.
+          If not provided, the action will be triggered for all repositories in the organization.
+        required: false
+        type: string
+      replicate-common-files:
+        description: 'Replicate common files'
+        required: false
+        default: false
+        type: boolean
+
+#permissions:
+#  contents: read
+#  pull-requests: write
+#  statuses: read
+jobs:
+  replicate_common_files:
+    name: Replicating common git files
+    if: ${{ inputs.replicate-common-files }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Replicating common files
+        uses: derberg/manage-files-in-multiple-repositories@v2
+        with:
+          github_token: '${{ secrets.GH_ACCESS_TOKEN }}'
+          exclude_private: true
+          exclude_forked: true
+          committer_username: NetcrackerCLPLCI
+          bot_branch_name: broadcast-common-files
+          patterns_to_include: >
+            .gitattributes, .editorconfig
+          destination: .
+          commit_message: 'chore: update of common files'
