@@ -23,26 +23,28 @@ jobs:
   setup_matrix:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.setup_matrix.outputs.matrix_output }}
+      matrix: ${{ steps.setup_matrix.outputs.matrix }}
     steps:
       - id: setup_matrix
         run: |
-          csv_string="${{ inputs.repo_name }}"
-          printf -v quoted_string '"%s",' ${csv_string//,/ }
-          json_string="[${quoted_string%,}]"  # Remove the last comma
-          echo "matrix_output=${json_string}"
-          echo "matrix_output=${json_string}" >> $GITHUB_OUTPUT
+          CSV_STRING="item1,item2,item3"
+          JSON_MATRIX=$(jq -c -n --arg in_str "$CSV_STRING" '$in_str | split(",")')
+          echo "matrix={\"items\":$JSON_MATRIX}" >> $GITHUB_OUTPUT
+          # csv_string="${{ inputs.repo_name }}"
+          # printf -v quoted_string '"%s",' ${csv_string//,/ }
+          # json_string="[${quoted_string%,}]"  # Remove the last comma
+          # echo "matrix_output={\"items\":$json_string}"
+          # echo "matrix_output={\"items\":$json_string}" >> $GITHUB_OUTPUT
   replicate_common_files:
     needs: setup_matrix
     name: Replicating common git files
     strategy:
       fail-fast: false
-      matrix:
-        repo: ${{ fromJson(needs.setup_matrix.outputs.matrix) }}
+      matrix: ${{ fromJson(needs.setup_matrix.outputs.matrix) }}
     if: ${{ inputs.replicate-common-files }}
     uses: myborislavrorg/broadcast/.github/workflows/reusable-broadcast-files.yaml@main
     with:
       replicate-common-files: ${{ inputs.replicate-common-files }}
-      repo_name: "${{ matrix.repo }}"
+      repo_name: "${{ matrix.item }}"
     secrets:
       token: '${{ secrets.GITHUB_TOKEN }}'
