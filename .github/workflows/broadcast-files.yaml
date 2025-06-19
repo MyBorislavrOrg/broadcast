@@ -1,7 +1,7 @@
 ---
 name: Broadcast files to organization
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       repo_name:
         description: |
