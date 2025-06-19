@@ -31,7 +31,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Replicating common files
-        uses: derberg/manage-files-in-multiple-repositories@v2
+        uses: borislavr/manage-files-in-multiple-repositories@main
         with:
           github_token: '${{ secrets.token }}'
           exclude_private: true
@@ -42,3 +42,4 @@ jobs:
             .gitattributes, .editorconfig
           destination: .
           commit_message: 'chore: update of common files'
+          repo_name: ${{ inputs.repo_name }}
