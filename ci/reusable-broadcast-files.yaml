@@ -14,6 +14,9 @@ on:
         required: false
         default: false
         type: boolean
+    secrets:
+      token:
+        required: true
 
 #permissions:
 #  contents: read
@@ -30,10 +33,10 @@ jobs:
       - name: Replicating common files
         uses: derberg/manage-files-in-multiple-repositories@v2
         with:
-          github_token: '${{ secrets.GH_ACCESS_TOKEN }}'
+          github_token: '${{ secrets.token }}'
           exclude_private: true
           exclude_forked: true
-          committer_username: NetcrackerCLPLCI
+          committer_username: borislavr
           bot_branch_name: broadcast-common-files
           patterns_to_include: >
             .gitattributes, .editorconfig
