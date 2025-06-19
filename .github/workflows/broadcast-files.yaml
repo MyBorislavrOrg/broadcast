@@ -29,6 +29,7 @@ jobs:
         run: |
           CSV_STRING="${{ inputs.repos }}"
           JSON_MATRIX=$(jq -c -n --arg in_str "$CSV_STRING" '$in_str | split(",")')
+          echo "matrix={\"items\":$JSON_MATRIX}"
           echo "matrix={\"items\":$JSON_MATRIX}" >> $GITHUB_OUTPUT
           # csv_string="${{ inputs.repos }}"
           # printf -v quoted_string '"%s",' ${csv_string//,/ }
