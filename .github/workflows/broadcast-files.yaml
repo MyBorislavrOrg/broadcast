@@ -1,5 +1,5 @@
 ---
-name: Reusable Broadcast files to organization
+name: Broadcast files to organization
 on:
   workflow_call:
     inputs:
