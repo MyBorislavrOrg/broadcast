@@ -35,7 +35,7 @@ jobs:
         with:
           github_token: '${{ secrets.token }}'
           exclude_private: true
-          exclude_forked: true
+          exclude_forked: false
           committer_username: borislavr
           bot_branch_name: broadcast-common-files
           patterns_to_include: >
