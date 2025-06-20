@@ -29,8 +29,8 @@ jobs:
         run: |
           CSV_STRING="${{ inputs.repos }}"
           JSON_MATRIX=$(jq -c -n --arg in_str "$CSV_STRING" '$in_str | split(",")')
-          echo "matrix={\"items\":$JSON_MATRIX}"
-          echo "matrix={\"items\":$JSON_MATRIX}" >> $GITHUB_OUTPUT
+          echo "matrix={\"item\":$JSON_MATRIX}"
+          echo "matrix={\"item\":$JSON_MATRIX}" >> $GITHUB_OUTPUT
 
   replicate_common_files:
     needs: setup_matrix
