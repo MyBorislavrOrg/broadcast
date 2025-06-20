@@ -44,4 +44,4 @@ jobs:
       replicate-common-files: ${{ inputs.replicate-common-files }}
       repo_name: "${{ matrix.item }}"
     secrets:
-      token: '${{ secrets.GITHUB_TOKEN }}'
+      token: '${{ secrets.BORISLAVR_PAT }}'
