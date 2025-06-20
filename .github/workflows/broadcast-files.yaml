@@ -27,10 +27,15 @@ jobs:
     steps:
       - id: setup_matrix
         run: |
-          CSV_STRING="${{ inputs.repos }}"
-          JSON_MATRIX=$(jq -c -n --arg in_str "$CSV_STRING" '$in_str | split(",")')
-          echo "matrix={\"item\":$JSON_MATRIX}"
-          echo "matrix={\"item\":$JSON_MATRIX}" >> $GITHUB_OUTPUT
+          if [[ "${{ inputs.repos }}" != "" ]]; then
+            CSV_STRING="${{ inputs.repos }}"
+            JSON_MATRIX=$(jq -c -n --arg in_str "$CSV_STRING" '$in_str | split(",")')
+            echo "matrix={\"item\":$JSON_MATRIX}"
+            echo "matrix={\"item\":$JSON_MATRIX}" >> $GITHUB_OUTPUT
+          else
+            echo "matrix={\"item\":[\"\"]}"
+            echo "matrix={\"item\":[\"\"]}" >> $GITHUB_OUTPUT
+          fi
 
   replicate_common_files:
     needs: setup_matrix
