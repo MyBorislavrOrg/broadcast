@@ -84,7 +84,7 @@ jobs:
           bot_branch_name: ${{ matrix.config.settings.bot_branch_name || 'broadcast-files' }}
           patterns_to_include: ${{ matrix.config.settings.patterns_to_include || '' }}
           destination: ${{ matrix.config.settings.destination || '.' }}
-          commit_message: ${{ matrix.config.settings.commit_message || "broadcasted files" }}
+          commit_message: ${{ matrix.config.settings.commit_message || 'broadcasted files' }}
           repo_name: ${{ matrix.repo }}
           patterns_to_ignore: ${{ matrix.config.settings.patterns_to_ignore || '' }}
           patterns_to_remove: ${{ matrix.config.settings.patterns_to_remove || '' }}
