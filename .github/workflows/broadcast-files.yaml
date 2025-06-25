@@ -68,7 +68,6 @@ jobs:
       fail-fast: false
       matrix:
         repo: ${{ fromJson(needs.setup_jobs.outputs.matrix) }}
-        config: ${{ fromJson(needs.setup_jobs.outputs.config) }}
       max-parallel: 10
     runs-on: ubuntu-latest
     steps:
@@ -81,11 +80,11 @@ jobs:
           exclude_private: true
           exclude_forked: false
           committer_username: borislavr
-          bot_branch_name: ${{ matrix.config.settings.bot_branch_name || 'broadcast-files' }}
-          patterns_to_include: ${{ matrix.config.settings.patterns_to_include || '' }}
-          destination: ${{ matrix.config.settings.destination || '.' }}
-          commit_message: ${{ matrix.config.settings.commit_message || 'broadcasted files' }}
+          bot_branch_name: ${{ fromJson(needs.setup_jobs.outputs.config).settings.bot_branch_name || 'broadcast-files' }}
+          patterns_to_include: ${{ fromJson(needs.setup_jobs.outputs.config).settings.patterns_to_include || '' }}
+          destination: ${{ fromJson(needs.setup_jobs.outputs.config).settings.destination || '.' }}
+          commit_message: ${{ fromJson(needs.setup_jobs.outputs.config).settings.commit_message || 'broadcasted files' }}
           repo_name: ${{ matrix.repo }}
-          patterns_to_ignore: ${{ matrix.config.settings.patterns_to_ignore || '' }}
-          patterns_to_remove: ${{ matrix.config.settings.patterns_to_remove || '' }}
-          repos_to_ignore: ${{ matrix.config.settings.repos_to_ignore || '' }}
+          patterns_to_ignore: ${{ fromJson(needs.setup_jobs.outputs.config).settings.patterns_to_ignore || '' }}
+          patterns_to_remove: ${{ fromJson(needs.setup_jobs.outputs.config).settings.patterns_to_remove || '' }}
+          repos_to_ignore: ${{ fromJson(needs.setup_jobs.outputs.config).settings.repos_to_ignore || '' }}
