@@ -9,11 +9,14 @@ on:
           If not provided, the action will be triggered for all repositories in the organization.
         required: false
         type: string
-      replicate-common-files:
-        description: 'Replicate common files'
+      config-file:
+        description: 'Config file relative path'
+        required: true
+        type: string
+      section:
+        description: "Config file section name"
         required: false
-        default: false
-        type: boolean
+        type: string
     secrets:
       token:
         required: true
