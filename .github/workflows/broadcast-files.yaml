@@ -82,6 +82,7 @@ jobs:
           committer_username: borislavr
           bot_branch_name: ${{ fromJson(needs.setup_jobs.outputs.config).settings.bot_branch_name || 'broadcast-files' }}
           patterns_to_include: ${{ fromJson(needs.setup_jobs.outputs.config).settings.patterns_to_include || '' }}
+          topics_to_include: ${{ fromJson(needs.setup_jobs.outputs.config).settings.topics_to_include || '' }}
           destination: ${{ fromJson(needs.setup_jobs.outputs.config).settings.destination || '.' }}
           commit_message: ${{ fromJson(needs.setup_jobs.outputs.config).settings.commit_message || 'broadcasted files' }}
           repo_name: ${{ matrix.repo }}
