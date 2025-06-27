@@ -74,7 +74,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Replicating files
-        uses: borislavr/manage-files-in-multiple-repositories@main
+        uses: borislavr/manage-files-in-multiple-repositories@feature/pr-body
         with:
           github_token: '${{ secrets.BORISLAVR_PAT }}'
           exclude_private: true
