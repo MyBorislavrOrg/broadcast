@@ -3,14 +3,7 @@ common-files:
   patterns_to_include: >
     .gitattributes, .editorconfig, .gitignore
   destination: .
-  commit_message: |
-    chore: [skip ci] update of common files
-    Files in the scope:
-    - .gitattributes
-    - .editorconfig
-    - .gitignore
-    Docs: https://github.com/Netcracker/qubership-workflow-hub#common-workflows
-    Issue: https://github.com/Netcracker/qubership-workflow-hub/issues/249
+  commit_message: "chore: [skip ci] update of common files"
 common-workflows:
   patterns_to_include: >
     workflow-templates/cla.yaml,
