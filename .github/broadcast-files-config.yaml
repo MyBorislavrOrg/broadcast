@@ -1,7 +1,7 @@
 common-files:
   bot_branch_name: broadcast-common-files
   patterns_to_include: >
-    .gitattributes,
+    .github/workflows/broadcast-files.yaml,
   destination: .
   commit_message: "chore: [skip ci] update of common files"
 common-workflows:
